@@ -1,0 +1,298 @@
+[21:23:31] [Module] USER INPUT : help
+[21:23:31] BOT RESULT : 
+How can I help you?
+ Available command:
+add
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sortadd
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sort
+
+[21:24:25] [Module] USER INPUT : help
+[21:24:25] BOT RESULT : 
+How can I help you?
+ Available command:
+add
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sortadd
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sort
+
+[21:24:25] AddressBook storage (BotAssistant/storage/AddressBookStorage.json) has been saved!
+[21:24:45] [Module] USER INPUT : add Andy +380674169297
+[21:24:45] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:24:45] !!! === ERROR MESSAGE === !!! Object of type AddressRecord is not JSON serializable
+
+[21:24:57] [Module] USER INPUT : show-all
+[21:24:57] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[21:36:53] [Module] USER INPUT : help
+[21:36:53] BOT RESULT : 
+How can I help you?
+ Available command:
+add
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sortadd
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sort
+
+[21:36:53] AddressBook storage (BotAssistant/storage/AddressBookStorage.json) has been saved!
+[21:37:05] [Module] USER INPUT : add Andy +380674169297
+[21:37:05] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:37:05] !!! === ERROR MESSAGE === !!! Object of type AddressRecord is not JSON serializable
+
+[21:38:16] [Module] USER INPUT : help
+[21:38:16] BOT RESULT : 
+How can I help you?
+ Available command:
+add
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sortadd
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sort
+
+[21:38:16] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[21:38:25] [Module] USER INPUT : add Andy +380674169297
+[21:38:25] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:38:25] !!! === ERROR MESSAGE === !!! Object of type AddressRecord is not JSON serializable
+
+[21:39:21] [Module] USER INPUT : help
+[21:39:21] BOT RESULT : 
+How can I help you?
+ Available command:
+add
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sortadd
+add-phone
+del-phone
+change
+show-all
+show-n
+phone
+search
+sort
+
+[21:39:21] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[21:39:31] [Module] USER INPUT : add Andy +380674169297
+[21:39:31] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:39:31] !!! === ERROR MESSAGE === !!! Object of type AddressRecord is not JSON serializable
+
+[21:40:30] [Module] USER INPUT : add Andy +380674169297
+[21:40:30] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:44:29] [Module] USER INPUT : add Andy +380674169297
+[21:44:29] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:44:29] !!! === ERROR MESSAGE === !!! write() argument must be str, not bytes
+
+[21:45:15] [Module] USER INPUT : add Andy +380674169297
+[21:45:15] BOT RESULT : 
+Added contact Name: Andy, Phone:+380674169297, Birthday:
+
+[21:45:15] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[21:45:20] [Module] USER INPUT : show-all
+[21:45:20] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[21:51:00] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[21:51:06] [Module] USER INPUT : show-all
+[21:51:06] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[21:51:06] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[21:51:59] [Module] USER INPUT : show-n 1
+[21:51:59] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[21:51:59] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[21:53:57] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[21:54:01] [Module] USER INPUT : show-all
+[21:54:01] BOT RESULT : 
+===================================================
+| No. |Name        |   Phone(s)    |   Birthday   |
+===================================================
+|  1  |Andy        | +380674169297 |              |
+===================================================
+
+
+[21:54:01] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[21:54:01] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[21:54:25] [Module] USER INPUT : show-n 1
+[21:54:25] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[21:54:25] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:00:05] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:00:10] [Module] USER INPUT : show-all
+[22:00:10] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:00:10] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:01:59] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:02:05] [Module] USER INPUT : show-all
+[22:02:05] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:02:05] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:03:32] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:03:37] [Module] USER INPUT : show-all
+[22:03:37] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |
+===================================================
+|  1   |Andy           |            +380674169297             |
+===============================================================================================================================================
+
+
+[22:03:37] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[22:03:37] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:04:12] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:04:16] [Module] USER INPUT : show-all
+[22:04:16] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |
+===============================================================================================================================================
+|  1   |Andy           |            +380674169297             |
+===============================================================================================================================================
+
+
+[22:04:16] AddressBook storage (BotAssistant/storage/AddressBookStorage.csv) has been saved!
+[22:04:16] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:05:11] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:05:16] [Module] USER INPUT : show-all
+[22:05:16] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:05:16] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:05:45] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:05:50] [Module] USER INPUT : show-all
+[22:05:50] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:05:50] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:07:57] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:08:01] [Module] USER INPUT : show-all
+[22:08:01] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:08:01] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:13:02] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:13:33] [Module] USER INPUT : show-all
+[22:13:33] !!! === ERROR MESSAGE === !!! unsupported format string passed to NoneType.__format__
+
+[22:13:33] AddressBook (BotAssistant/storage/AddressBookStorage.csv) has been loaded!
+[22:15:33] [Module] USER INPUT : add Andy +380674169297
+[22:15:33] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[22:17:12] [Module] USER INPUT : show-all
+[22:17:12] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |          Email          |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[22:17:12] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[22:17:26] [Module] USER INPUT : add Andy +380674169297
+[22:17:26] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[22:19:34] [Module] USER INPUT : add Andy +380674169297
+[22:19:34] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[14:10:56] [Module] USER INPUT : show-all
+[14:10:56] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |          Email          |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[14:10:56] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[14:11:54] [Module] USER INPUT : show-all
+[14:11:54] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |          Email          |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[14:11:54] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[14:12:33] [Module] USER INPUT : show-all
+[14:12:33] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |          Email          |  Birthday  |Address                                 |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[14:12:33] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[14:13:03] [Module] USER INPUT : show-all
+[14:13:03] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |          Email          |  Birthday  |                Address                 |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[14:13:03] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[14:13:31] [Module] USER INPUT : add Andy +380674169297
+[14:13:31] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[14:22:10] [Module] USER INPUT : add Andy +380674169297
+[14:22:10] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
