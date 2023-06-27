@@ -296,3 +296,57 @@ Added contact Name: Andy, Phone:+380674169297, Birthday:
 [14:22:10] [Module] USER INPUT : add Andy +380674169297
 [14:22:10] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
 
+[14:26:55] [Module] USER INPUT : add Andy +380674169297
+[14:26:55] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[14:34:42] [Module] USER INPUT : add Andy +380674169297
+[14:34:42] !!! === ERROR MESSAGE === !!! expected string or bytes-like object, got 'NoneType'
+
+[15:34:50] [Module] USER INPUT : add Andy +380674169297
+[15:34:50] BOT RESULT : 
+Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:"", Address:"")
+
+[15:34:50] !!! === ERROR MESSAGE === !!! dumps() takes 1 positional argument but 2 were given
+
+[15:38:56] [Module] USER INPUT : add Andy +380674169297
+[15:38:56] BOT RESULT : 
+Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:"", Address:"")
+
+[15:38:56] !!! === ERROR MESSAGE === !!! a bytes-like object is required, not 'str'
+
+[15:39:32] [Module] USER INPUT : add Andy +380674169297
+[15:39:32] BOT RESULT : 
+Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:"", Address:"")
+
+[15:39:32] !!! === ERROR MESSAGE === !!! Object of type AddressRecord is not JSON serializable
+
+[15:42:38] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!
+[15:42:48] [Module] USER INPUT : add Andy +380674169297
+[15:42:48] BOT RESULT : 
+Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:"", Address:"")
+
+[15:42:48] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[15:42:48] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!
+[15:42:53] [Module] USER INPUT : show-all
+[15:42:53] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+|  1   |Andy           |            +380674169297             |    Emty    |          Emty           |                  Emty                  |
+===============================================================================================================================================
+
+
+[15:42:53] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[15:42:53] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!
+[15:42:58] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!
+[15:43:02] [Module] USER INPUT : show-all
+[15:43:02] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+|  1   |Andy           |            +380674169297             |    Emty    |          Emty           |                  Emty                  |
+===============================================================================================================================================
+
+
+[15:43:02] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
+[15:43:02] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!

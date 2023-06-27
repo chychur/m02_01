@@ -81,13 +81,13 @@ class Email(Field):
 
     @Field.value.setter
     def value(self, value):
-        if re.match('^\S+@\S+\.\S+$', value) or value == '':
+        if not value:
+            Field.value.fset(self, '')
+        elif re.match('^\S+@\S+\.\S+$', value):
             Field.value.fset(self, value)
         else:
             raise ValueError(
-                'Incorrect email format! '
-                'Please provide correct email format.'
-            )
+                'Incorrect email! Please provide correct email format.')
 
 
 class Address(Field):
@@ -95,11 +95,33 @@ class Address(Field):
     def __init__(self, value) -> None:
         super().__init__(value)
 
+    @Field.value.setter
+    def value(self, value):
+        if not value:
+            Field.value.fset(self, '')
+        elif value:
+            Field.value.fset(self, value)
+        else:
+            raise ValueError(
+                'Incorrect address! Please provide correct address format.')
+
 
 class Tag(Field):
 
     def __init__(self, value) -> None:
         super().__init__(value)
+
+    @Field.value.setter
+    def value(self, value):
+        if not value:
+            Field.value.fset(self, '')
+        elif value:
+            Field.value.fset(self, value)
+        else:
+            raise ValueError(
+                'Incorrect tag format! '
+                'Please provide correct tag format.'
+            )
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, type(self)):
@@ -115,10 +137,24 @@ class Note(Field):
     def __init__(self, value) -> None:
         super().__init__(value)
 
+    @Field.value.setter
+    def value(self, value):
+        if not value:
+            Field.value.fset(self, '')
+        elif value:
+            Field.value.fset(self, value)
+        else:
+            raise ValueError(
+                'Incorrect note! Please provide correct note format.')
 
-class RecordType(ABC):
+
+# =============================== Adstract Classes =====================
+
+
+class RecordType(ABC, UserDict):
 
     def __init__(self):
+        self.data = None
         self.name = None
 
     @abstractmethod
@@ -155,7 +191,15 @@ class ModuleType(ABC, UserList):
         pass
 
     @abstractmethod
+    def add_tag_handler(self):
+        pass
+
+    @abstractmethod
     def del_phone_handler(self):
+        pass
+
+    @abstractmethod
+    def del_tag_handler(self):
         pass
 
     @abstractmethod
@@ -166,17 +210,21 @@ class ModuleType(ABC, UserList):
     def phone_handler(self):
         pass
 
-    # @abstractmethod
-    # def __record_table_maker(self):
-    #     pass
+    @abstractmethod
+    def tag_handler(self):
+        pass
 
-    # @abstractmethod
-    # def __header_table_maker(self):
-    #     pass
+    @abstractmethod
+    def record_table_maker(self):
+        pass
 
-    # @abstractmethod
-    # def __foter_table_maker(self):
-    #     pass
+    @abstractmethod
+    def header_table_maker(self):
+        pass
+
+    @abstractmethod
+    def foter_table_maker(self):
+        pass
 
     @abstractmethod
     def show_all_handler(self):
@@ -196,10 +244,6 @@ class ModuleType(ABC, UserList):
 
     @abstractmethod
     def load(self):
-        pass
-
-    @abstractmethod
-    def log(self, log_message: str, prefix: str | None = None):
         pass
 
 

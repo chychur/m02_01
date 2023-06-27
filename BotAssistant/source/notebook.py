@@ -1,112 +1,129 @@
-from cls import RecordType, Name, Tag, Note
-from collections import UserList
-from datetime import datetime
+from source.cls import RecordType, ModuleType, Name, Tag, Note
 
-import json
-import re
+import pickle
 
 
 class NoteRecord(RecordType):
 
-    def __init__(self, name: Name, tag: Tag | None = None, note: Note | None = None):
+    def __init__(
+            self,
+            name: Name,
+            tag: Tag | None = None,
+            note: Note | None = None
+    ):
+
         self.name = name
-
-        self.tags = set()
-        self.adder(tag)
         self.note = note
+        self.tags = set()
+        self.add_tag(tag)
 
-    def add_item(self, tag):
+    def __repr__(self) -> str:
+        return f'Record (Name:"{self.name}", Tag(s):"{self.show_tags()}", Note:"{self.note or "Empty"}")'
+
+    def __str__(self) -> str:
+        return f'Record (Name:"{self.name}", Tag(s):"{self.show_tags()}", Note:"{self.note or "Empty"}")'
+
+    def add_tag(self, tag):
         if isinstance(tag, str):
             tag = Tag(tag)
         self.tags.add(tag)
 
-    def show_item(self):
+    def show_tags(self):
         if self.tags:
             list_tags = [str(t) for t in self.tags]
             return ", ".join(list_tags)
         return 'Empty'
 
-    def __repr__(self) -> str:
-        return f'Record (Name:"{self.name}", Phone:"{self.show_phones()}", Birthday:"{self.birthday}")'
-
-    def __str__(self) -> str:
-        return f'Name: {self.name}, Phone:{self.show_phones()}, Birthday:{self.birthday or "Empty"}'
-
     @property
     def record(self):
         return {
             'name': self.name.value,
-            'phones': self.show_phones(),
-            'birthday': self.birthday.value if self.birthday else 'Empty'
+            'tagss': self.show_tags(),
+            'birthday': self.note.value if self.note.value != '' else 'Empty',
         }
 
     def __getitem__(self, item: str):
         return self.record.get(item)
 
 
-class NoteBook(UserList):
+class NoteBook(ModuleType):
 
     def __init__(self) -> None:
         self.data: list[NoteRecord] = []
         self.current_value = 0
         self.step = 0
-        self.file_name_save = '/BotAssistant/storage/NoteBookStorage.json'
+        self.file_name_save = 'BotAssistant/storage/NoteBookStorage.bin'
 
     def __getitem__(self, index):
         return self.data[index]
 
-    def create_and_add_record(self, name, tag: str | None = None, note: str | None = None):
-        record = NoteRecord(Name(name), Tag(tag), Note(note))
+    def create_and_add_record(self,
+                              name: str,
+                              tag: str,
+                              note: str | None = None
+                              ):
+        record = NoteRecord(Name(name),
+                            Tag(tag),
+                            Note(note)
+                            )
         self.add_record_handler(record)
 
-        return f"Added contact {record}"
+        return f"Added note {record}"
 
     def add_record_handler(self, record: NoteRecord):
         self.data.append(record)
 
-    def add_tag_handler(self, name, tag: str):
+    def add_note_handler(self, name, tag: str):
         for record in self.data:
             if record.name.value == name:
                 record.tags.add(Tag(tag))
 
-    def del_phone_handler(self, name, phone):
+    def del_tag_handler(self, name, tag):
         for record in self.data:
             if record.name.value == name:
-                record.phones.discard(Phone(phone))
+                record.tags.discard(Tag(tag))
 
-    def change_handler(self, name: str, old_phone: str, phone: str):  # зміна телефону
-        old_phone_title = Phone(old_phone)
+    def change_handler(self, name: str, old_tag: str, tag: str):  # зміна тегу
+        old_tag_title = Tag(old_tag)
         for record in self.data:
             if record.name.value == name:
-                if record.phones:
-                    self.add_phone_handler(name, phone)
-                    self.del_phone_handler(name, old_phone)
+                if record.tags:
+                    self.add_phone_handler(name, tag)
+                    self.del_phone_handler(name, old_tag)
 
                 return (
-                    f'For user [ {record.name.value} ] had been changed phone number! \n'
-                    f' Old phone number: {old_phone_title.value} \n'
-                    f' New phone number: {record.phones}'
+                    f'For note [ {record.name.value} ] had been changed tag! \n'
+                    f' Old tag: {old_tag_title.value} \n'
+                    f' New tag: {record.tags}'
                 )
-        return f'Not found contact for name {name}'
+        return f'Not found tag for note: {name}'
 
-    def phone_handler(self, name: str):  # показати номер телефону
+    def tag_handler(self, name: str):  # показати тег
         for record in self.data:
             if record.name.value == name:
-                return f"Phone(s) of {name} is: {record.phones}"
-        return f"Phone for user {name} not found"
+                return f'Tag(s) of the note "{name}" is: {record.show_tags()}'
+        return f'Tag for note "{name}" not found'
+
+    def record_table_maker(self, counter: int, record: NoteRecord):
+        row_table = '|{:^6}|{:<25}|{:^40}|{:^40}|\n'.format(counter, record.name.value, record.show_tags(
+        ), record.note.value if record.note.value != '' else 'Emty')
+        return row_table
+
+    def header_table_maker(self):
+        return '='*116 + '\n' + '|{:^6}|{:<25}|{:^40}|{:^40}|\n'.format('No.', 'Name', 'Tag(s)', 'Note') + '='*116 + '\n'
+
+    def foter_table_maker(self):
+        return '='*116 + '\n'
 
     def show_all_handler(self):
         self.step = 0
         result = ''
-        header = '='*51 + '\n' + \
-            '|{:^5}|{:<12}|{:^15}|{:^14}|\n'.format(
-                'No.', 'Name', 'Phone(s)', 'Birthday') + '='*51 + '\n'
-        foter = '='*51 + '\n'
+        header = self.header_table_maker()
+        foter = self.foter_table_maker()
         counter = 0
         for record in self.data:
             counter += 1
-            result += '|{:^5}|{:<12}|{:^15}|{:^14}|\n'.format(
-                counter, record.name.value, record.show_phones(), record.birthday.value if record.birthday else 'Empty')
+            result += self.record_table_maker(counter, record)
         counter = 0
         result_tbl = header + result + foter
         return result_tbl
@@ -117,22 +134,20 @@ class NoteBook(UserList):
             if len(self.data) - self.step >= n:
 
                 result = ''
-                header = '='*51 + '\n' + \
-                    '|{:^5}|{:<12}|{:^15}|{:^14}|\n'.format(
-                        'No.', 'Name', 'Phone(s)', 'Birthday') + '='*51 + '\n'
-                foter = '='*51 + '\n'
-
+                header = self.header_table_maker()
+                foter = self.foter_table_maker()
+                counter = 0
                 for record in self.data[self.step:self.step+n]:
                     self.step += 1
-                    result += '|{:^5}|{:<12}|{:^15}|{:^14}|\n'.format(
-                        self.step, record.name.value, record.show_phones(), record.birthday.value if record.birthday else 'Empty')
-
+                    counter += 1
+                    result += self.record_table_maker(counter, record)
+                counter = 0
                 result_tbl = header + result + foter
                 return result_tbl
             else:
                 return (
-                    f'Curent AdressBook volume is {len(self.data)} records'
-                    f'Now you are in the end of AdressBook'
+                    f'Curent {self.__class__.__name__} volume is {len(self.data)} records'
+                    f'Now you are in the end of {self.__class__.__name__}'
                 )
         else:
             raise ValueError('Wrong value! the number must be greater than 0')
@@ -144,7 +159,7 @@ class NoteBook(UserList):
 
         if self.current_value < len(self.data):
 
-            result = f' {self.current_value + 1} | Name: {self.data[self.current_value].name.value}, Phone(s):{self.data[self.current_value].phones}, Birthday: {self.data[self.current_value].birthday or "Empty"}'
+            result = f' {self.current_value + 1} | Name: {self.data[self.current_value].name.value}, Phone(s):{self.data[self.current_value].tags}, Birthday: {self.data[self.current_value].note or "Empty"}'
             self.current_value += 1
             return result
 
@@ -153,45 +168,50 @@ class NoteBook(UserList):
     def search(self, pattern):
         pattern_searched = str(pattern.strip().lower().replace(' ', ''))
         result = ''
-        header = '\n' + f'  RESULT of searching with your request: "{pattern}"' + '\n' + '='*45 + '\n' + \
-            '|{:<12}|{:^15}|{:^14}|\n'.format(
-                'Name', 'Phone(s)', 'Birthday') + '='*45 + '\n'
-        foter = '='*45 + '\n'
+        header = self.header_table_maker()
+        foter = self.foter_table_maker()
+        counter = 0
+
         for record in self.data:
-            for phone in record.phones:
-                if str(phone).find(pattern_searched) != -1:
-                    result += '|{:<12}|{:^15}|{:^14}|\n'.format(
-                        record.name.value, record.phones, record.birthday.value)
-            if str(record.name.value.find(pattern_searched)) != -1:
-                result += '|{:<12}|{:^15}|{:^14}|\n'.format(
-                    record.name.value, record.phones, record.birthday.value)
-            else:
-                result = f'There was nothing found with your request: "{pattern}"'
-                header = ''
-                foter = ''
+            counter += 1
+
+            for field in record.__dict__.values():
+                value = str(field).strip().lower().replace(' ', '')
+                if value.find(pattern_searched) != -1:
+                    result += self.record_table_maker(counter, record)
+                    break
+
+        counter = 0
         result_tbl = header + result + foter
         return result_tbl
 
     def autosave(self):
-        with open(self.file_name_save, 'w') as file:
-            json.dump(self.data, file)
-        self.log("Addressbook has been saved!")
+        with open(self.file_name_save, 'wb') as file:
+            pickle.dump(self.data, file)
+        self.log(
+            f"{self.__class__.__name__} storage ({self.file_name_save}) has been saved!")
 
     def load(self):
-        with open(self.file_name_save, 'r') as file:
-            self.data = json.load(file)
-        self.log("Addressbook has been loaded!")
+        with open(self.file_name_save, 'rb') as file:
+            self.data = pickle.load(file)
+        self.log(
+            f"{self.__class__.__name__} ({self.file_name_save}) has been loaded!")
         return self.data
 
-    def log(self, log_message: str, prefix: str | None = None):
-        current_time = datetime.strftime(datetime.now(), '%H:%M:%S')
-        if prefix == 'com':
-            message = f'[{current_time}] USER INPUT : {log_message}'
-        elif prefix == 'res':
-            message = f'[{current_time}] BOT RESULT : \n{log_message}\n'
-        elif prefix == 'err':
-            message = f'[{current_time}] !!! === ERROR MESSAGE === !!! {log_message}\n'
-        elif prefix == None:
-            message = f'[{current_time}] {log_message}'
-        with open('logs.txt', 'a') as file:
-            file.write(f'{message}\n')
+    # def log(self, log_message: str, prefix: str | None = None):
+    #     current_time = datetime.strftime(datetime.now(), '%H:%M:%S')
+    #     prefixes = {
+    #         'com': f'[{current_time}] [Module] USER INPUT : {log_message}',
+    #         'res': f'[{current_time}] BOT RESULT : \n{log_message}\n',
+    #         'err': f'[{current_time}] !!! === ERROR MESSAGE === !!! {log_message}\n',
+    #         None: f'[{current_time}] {log_message}'
+    #     }
+
+    #     message = prefixes[prefix]
+
+    #     with open('BotAssistant/storage/logs.txt', 'a') as file:
+    #         file.write(f'{message}\n')
+
+
+if __name__ == "__main__":
+    pass
