@@ -155,18 +155,25 @@ class RecordType(ABC, UserDict):
 
     def __init__(self):
         self.data = None
+
         self.name = None
+        self.birthday = None
+        self.phones = set()
+        self.tags = set()
+        self.email = None
+        self.address = None
+        self.note = None
 
     @abstractmethod
     def days_to_birthday(self):
         pass
 
     @abstractmethod
-    def add_phone(self):
+    def add_unique_item(self):
         pass
 
     @abstractmethod
-    def show_phones(self):
+    def show_unique_items(self):
         pass
 
 
@@ -177,41 +184,30 @@ class ModuleType(ABC, UserList):
         self.current_value = 0
         self.step = 0
         self.file_name_save = None
+        record = None
+        self.add_record(record)
 
     @abstractmethod
     def create_and_add_record(self):
         pass
 
+    def add_record(self, record: object):
+        self.data.append(record)
+
     @abstractmethod
-    def add_record_handler(self):
+    def add_item_s(self):
         pass
 
     @abstractmethod
-    def add_phone_handler(self):
+    def del_item_s(self):
         pass
 
     @abstractmethod
-    def add_tag_handler(self):
+    def change_item_s(self):
         pass
 
     @abstractmethod
-    def del_phone_handler(self):
-        pass
-
-    @abstractmethod
-    def del_tag_handler(self):
-        pass
-
-    @abstractmethod
-    def change_handler(self):
-        pass
-
-    @abstractmethod
-    def phone_handler(self):
-        pass
-
-    @abstractmethod
-    def tag_handler(self):
+    def item(self):
         pass
 
     @abstractmethod
@@ -227,11 +223,11 @@ class ModuleType(ABC, UserList):
         pass
 
     @abstractmethod
-    def show_all_handler(self):
+    def show_all(self):
         pass
 
     @abstractmethod
-    def show_n_handler(self):
+    def show_n(self):
         pass
 
     @abstractmethod
@@ -239,7 +235,7 @@ class ModuleType(ABC, UserList):
         pass
 
     @abstractmethod
-    def autosave(self):
+    def save(self):
         pass
 
     @abstractmethod

@@ -15,20 +15,20 @@ class NoteRecord(RecordType):
         self.name = name
         self.note = note
         self.tags = set()
-        self.add_tag(tag)
+        self.add_unique_item(tag)
 
     def __repr__(self) -> str:
-        return f'Record (Name:"{self.name}", Tag(s):"{self.show_tags()}", Note:"{self.note or "Empty"}")'
+        return f'Record (Name:"{self.name}", Tag(s):"{self.show_unique_items()}", Note:"{self.note or "Empty"}")'
 
     def __str__(self) -> str:
-        return f'Record (Name:"{self.name}", Tag(s):"{self.show_tags()}", Note:"{self.note or "Empty"}")'
+        return f'Record (Name:"{self.name}", Tag(s):"{self.show_unique_items()}", Note:"{self.note or "Empty"}")'
 
-    def add_tag(self, tag):
+    def add_unique_item(self, tag):
         if isinstance(tag, str):
             tag = Tag(tag)
         self.tags.add(tag)
 
-    def show_tags(self):
+    def show_unique_items(self):
         if self.tags:
             list_tags = [str(t) for t in self.tags]
             return ", ".join(list_tags)
@@ -38,7 +38,7 @@ class NoteRecord(RecordType):
     def record(self):
         return {
             'name': self.name.value,
-            'tagss': self.show_tags(),
+            'tagss': self.show_unique_items(),
             'birthday': self.note.value if self.note.value != '' else 'Empty',
         }
 
@@ -66,30 +66,27 @@ class NoteBook(ModuleType):
                             Tag(tag),
                             Note(note)
                             )
-        self.add_record_handler(record)
+        self.add_record(record)
 
         return f"Added note {record}"
 
-    def add_record_handler(self, record: NoteRecord):
-        self.data.append(record)
-
-    def add_note_handler(self, name, tag: str):
+    def add_item_s(self, name, tag: str):
         for record in self.data:
             if record.name.value == name:
                 record.tags.add(Tag(tag))
 
-    def del_tag_handler(self, name, tag):
+    def del_item_s(self, name, tag):
         for record in self.data:
             if record.name.value == name:
                 record.tags.discard(Tag(tag))
 
-    def change_handler(self, name: str, old_tag: str, tag: str):  # зміна тегу
+    def change_item_s(self, name: str, old_tag: str, tag: str):  # зміна тегу
         old_tag_title = Tag(old_tag)
         for record in self.data:
             if record.name.value == name:
                 if record.tags:
-                    self.add_phone_handler(name, tag)
-                    self.del_phone_handler(name, old_tag)
+                    self.add_item_s(name, tag)
+                    self.del_item_s(name, old_tag)
 
                 return (
                     f'For note [ {record.name.value} ] had been changed tag! \n'
@@ -98,14 +95,14 @@ class NoteBook(ModuleType):
                 )
         return f'Not found tag for note: {name}'
 
-    def tag_handler(self, name: str):  # показати тег
+    def item(self, name: str):  # показати тег
         for record in self.data:
             if record.name.value == name:
-                return f'Tag(s) of the note "{name}" is: {record.show_tags()}'
+                return f'Tag(s) of the note "{name}" is: {record.show_unique_items()}'
         return f'Tag for note "{name}" not found'
 
     def record_table_maker(self, counter: int, record: NoteRecord):
-        row_table = '|{:^6}|{:<25}|{:^40}|{:^40}|\n'.format(counter, record.name.value, record.show_tags(
+        row_table = '|{:^6}|{:<25}|{:^40}|{:^40}|\n'.format(counter, record.name.value, record.show_unique_items(
         ), record.note.value if record.note.value != '' else 'Emty')
         return row_table
 
@@ -115,7 +112,7 @@ class NoteBook(ModuleType):
     def foter_table_maker(self):
         return '='*116 + '\n'
 
-    def show_all_handler(self):
+    def show_all(self):
         self.step = 0
         result = ''
         header = self.header_table_maker()
@@ -128,7 +125,7 @@ class NoteBook(ModuleType):
         result_tbl = header + result + foter
         return result_tbl
 
-    def show_n_handler(self, n: int):
+    def show_n(self, n: int):
         n = int(n)
         if n > 0:
             if len(self.data) - self.step >= n:
@@ -185,17 +182,13 @@ class NoteBook(ModuleType):
         result_tbl = header + result + foter
         return result_tbl
 
-    def autosave(self):
+    def save(self):
         with open(self.file_name_save, 'wb') as file:
             pickle.dump(self.data, file)
-        self.log(
-            f"{self.__class__.__name__} storage ({self.file_name_save}) has been saved!")
 
     def load(self):
         with open(self.file_name_save, 'rb') as file:
             self.data = pickle.load(file)
-        self.log(
-            f"{self.__class__.__name__} ({self.file_name_save}) has been loaded!")
         return self.data
 
     # def log(self, log_message: str, prefix: str | None = None):

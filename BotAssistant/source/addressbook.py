@@ -18,11 +18,12 @@ class AddressRecord(RecordType):
         self.name = name
         self.birthday = birthday
         self.phones = set()
-        self.add_phone(phone)
+        self.add_unique_item(phone)
         self.email = email
         self.address = address
 
     def days_to_birthday(self):
+
         if not self.birthday:
             return
         now = datetime.now()
@@ -31,17 +32,17 @@ class AddressRecord(RecordType):
         return (self.birthday.value.replace(year=now.year) + 1).days
 
     def __repr__(self) -> str:
-        return f'Record (Name:"{self.name}", Phone(s):"{self.show_phones()}", Birthday:"{self.birthday or "Empty"}", Email:"{self.email or "Empty"}", Address:"{self.address or "Empty"}")'
+        return f'Record (Name:"{self.name}", Phone(s):"{self.show_unique_items()}", Birthday:"{self.birthday or "Empty"}", Email:"{self.email or "Empty"}", Address:"{self.address or "Empty"}")'
 
     def __str__(self) -> str:
-        return f'Record (Name:"{self.name}", Phone(s):"{self.show_phones()}", Birthday:"{self.birthday or "Empty"}", Email:"{self.email or "Empty"}", Address:"{self.address or "Empty"}")'
+        return f'Record (Name:"{self.name}", Phone(s):"{self.show_unique_items()}", Birthday:"{self.birthday or "Empty"}", Email:"{self.email or "Empty"}", Address:"{self.address or "Empty"}")'
 
-    def add_phone(self, phone):
+    def add_unique_item(self, phone):  # add_phone
         if isinstance(phone, str):
             phone = Phone(phone)
         self.phones.add(phone)
 
-    def show_phones(self):
+    def show_unique_items(self):  # show_phone
         if self.phones:
             list_phones = [str(p) for p in self.phones]
             return ", ".join(list_phones)
@@ -51,7 +52,7 @@ class AddressRecord(RecordType):
     def record(self):
         return {
             'name': self.name.value,
-            'phones': self.show_phones(),
+            'phones': self.show_unique_items(),
             'birthday': self.birthday.value if self.birthday.value != '' else 'Empty',
             'email': self.email.value if self.email.value != '' else 'Empty',
             'address': self.address.value if self.address.value != '' else 'Empty'
@@ -83,30 +84,36 @@ class AddressBook(ModuleType):
                                Birthday(birthday),
                                Email(email),
                                Address(address))
-        self.add_record_handler(record)
+        self.add_record(record)
 
         return f"Added contact {record}"
 
-    def add_record_handler(self, record: AddressRecord):
-        self.data.append(record)
-
-    def add_phone_handler(self, name, phone: str):
+    def add_item_s(self, name, phone: str):
         for record in self.data:
             if record.name.value == name:
                 record.phones.add(Phone(phone))
 
-    def del_phone_handler(self, name, phone):
+    def del_item_s(self, name, phone):
         for record in self.data:
             if record.name.value == name:
                 record.phones.discard(Phone(phone))
 
-    def change_handler(self, name: str, old_phone: str, phone: str):  # зміна телефону
+    def change_item_s(self, name: str, old_phone: str, phone: str):  # зміна телефону
+        """
+        Change phone(s) number of specify AddressBook record
+        Arguments:
+            name: string
+            old_phone: string
+            phone: string
+        Returns:
+            String.
+        """
         old_phone_title = Phone(old_phone)
         for record in self.data:
             if record.name.value == name:
                 if record.phones:
-                    self.add_phone_handler(name, phone)
-                    self.del_phone_handler(name, old_phone)
+                    self.add_item_s(name, phone)
+                    self.del_item_s(name, old_phone)
 
                 return (
                     f'For user [ {record.name.value} ] had been changed phone number! \n'
@@ -115,14 +122,21 @@ class AddressBook(ModuleType):
                 )
         return f'Not found contact for name {name}'
 
-    def phone_handler(self, name: str):  # показати номер телефону
+    def item(self, name: str):  # показати номер телефону
+        """
+        Show phone(s) number of specify AddressBook record
+        Arguments:
+            name: string
+        Returns:
+            String.
+        """
         for record in self.data:
             if record.name.value == name:
                 return f"Phone(s) of {name} is: {record.phones}"
         return f"Phone for user {name} not found"
 
     def record_table_maker(self, counter: int, record: AddressRecord):
-        row_table = '|{:^6}|{:<15}|{:^38}|{:^12}|{:^25}|{:^40}|\n'.format(counter, record.name.value, record.show_phones(
+        row_table = '|{:^6}|{:<15}|{:^38}|{:^12}|{:^25}|{:^40}|\n'.format(counter, record.name.value, record.show_unique_items(
         ), record.birthday.value if record.birthday.value != '' else 'Emty', record.email.value if record.email.value != '' else 'Emty', record.address.value if record.address.value != '' else 'Emty')
         return row_table
 
@@ -132,7 +146,14 @@ class AddressBook(ModuleType):
     def foter_table_maker(self):
         return '='*143 + '\n'
 
-    def show_all_handler(self):
+    def show_all(self):
+        """
+        Show all records of AddressBook
+        Arguments:
+
+        Returns:
+            The table with columns of fields. Each row is unique record.
+        """
         self.step = 0
         result = ''
         header = self.header_table_maker()
@@ -143,9 +164,17 @@ class AddressBook(ModuleType):
             result += self.record_table_maker(counter, record)
         counter = 0
         result_tbl = header + result + foter
+
         return result_tbl
 
-    def show_n_handler(self, n: int):
+    def show_n(self, n: int):
+        """
+        Show number of records of AddressBook
+        Arguments:
+            n: integer
+        Returns:
+            The table with columns of fields. Each row is unique record. "n" is a step of showing rows
+        """
         n = int(n)
         if n > 0:
             if len(self.data) - self.step >= n:
@@ -182,7 +211,14 @@ class AddressBook(ModuleType):
 
         raise StopIteration
 
-    def search(self, pattern):
+    def search(self, pattern: str):
+        """
+        Show all records of AddressBook wtat find pattern
+        Arguments:
+            pattern: string
+        Returns:
+            The table wit columns of fields. Each row is unique record.
+        """
         pattern_searched = str(pattern.strip().lower().replace(' ', ''))
         result = ''
         header = self.header_table_maker()
@@ -202,32 +238,28 @@ class AddressBook(ModuleType):
         result_tbl = header + result + foter
         return result_tbl
 
-    def autosave(self):
+    def save(self):
+        """
+        Save all new editings of records of AddressBook
+        Arguments:
+
+        Returns:
+            Nothing.
+        """
         with open(self.file_name_save, 'wb') as file:
             pickle.dump(self.data, file)
-        self.log(
-            f"{self.__class__.__name__} storage ({self.file_name_save}) has been saved!")
 
     def load(self):
+        """
+        Load the records of AddressBook
+        Arguments:
+
+        Returns:
+            Nothing.
+        """
         with open(self.file_name_save, 'rb') as file:
             self.data = pickle.load(file)
-        self.log(
-            f"{self.__class__.__name__} ({self.file_name_save}) has been loaded!")
         return self.data
-
-    # def log(self, log_message: str, prefix: str | None = None):
-    #     current_time = datetime.strftime(datetime.now(), '%H:%M:%S')
-    #     prefixes = {
-    #         'com': f'[{current_time}] [Module] USER INPUT : {log_message}',
-    #         'res': f'[{current_time}] BOT RESULT : \n{log_message}\n',
-    #         'err': f'[{current_time}] !!! === ERROR MESSAGE === !!! {log_message}\n',
-    #         None: f'[{current_time}] {log_message}'
-    #     }
-
-    #     message = prefixes[prefix]
-
-    #     with open('BotAssistant/storage/logs.txt', 'a') as file:
-    #         file.write(f'{message}\n')
 
 
 if __name__ == "__main__":

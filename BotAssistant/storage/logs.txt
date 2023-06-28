@@ -350,3 +350,123 @@ Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:
 
 [15:43:02] AddressBook storage (BotAssistant/storage/AddressBookStorage.bin) has been saved!
 [15:43:02] AddressBook (BotAssistant/storage/AddressBookStorage.bin) has been loaded!
+[16:02:16] [Module] USER INPUT : help
+[16:02:16] BOT RESULT : 
+How can I help you?
+ Available command:
+help
+exit
+goodbye
+closeadd contact
+add phone
+del phone
+change phone
+all contacts
+n contacts
+phone
+search contact
+add note
+add tag
+del tag
+change tag
+all notes
+n notes
+tag
+search note
+sort
+
+[16:04:58] [Module] USER INPUT : help
+[16:04:58] BOT RESULT : 
+How can I help you?
+ Available command:
+help
+exit
+goodbye
+closeadd contact
+add phone
+del phone
+change phone
+all contacts
+n contacts
+phone
+search contact
+add note
+add tag
+del tag
+change tag
+all notes
+n notes
+tag
+search note
+sort
+
+[16:04:58] Bot has been saved!
+[16:12:30] [Module] USER INPUT : add contact Andy +380674169297
+[16:12:30] !!! === ERROR MESSAGE === !!! AddressBook.create_and_add_record() missing 2 required positional arguments: 'name' and 'phone'
+
+[16:12:42] [Module] USER INPUT : all contacts
+[16:14:34] [Module] USER INPUT : add contact Andy +380674169297
+[16:14:34] !!! === ERROR MESSAGE === !!! AddressBook.create_and_add_record() missing 2 required positional arguments: 'name' and 'phone'
+
+[16:14:39] [Module] USER INPUT : all contacts
+[16:14:39] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[16:14:39] Bot has been saved!
+[16:53:25] Bot has been loaded!
+[16:53:41] [Module] USER INPUT : all-notes
+[16:53:41] BOT RESULT : 
+====================================================================================================================
+| No.  |Name                     |                 Tag(s)                 |                  Note                  |
+====================================================================================================================
+====================================================================================================================
+
+
+[16:53:41] Bot has been saved!
+[16:53:41] Bot has been loaded!
+[16:53:55] [Module] USER INPUT : all-contacts
+[16:53:55] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+===============================================================================================================================================
+
+
+[16:53:55] Bot has been saved!
+[16:53:55] Bot has been loaded!
+[16:55:43] Bot has been loaded!
+[16:55:57] [Module] USER INPUT : add-contact Andy +380674169297
+[16:58:01] Bot has been loaded!
+[16:58:50] [Module] USER INPUT : add-contact Andy +380674169297
+[16:58:50] BOT RESULT : 
+Added contact Record (Name:"Andy", Phone(s):"+380674169297", Birthday:"", Email:"", Address:"")
+
+[16:58:50] Bot has been saved!
+[16:58:50] Bot has been loaded!
+[16:59:03] [Module] USER INPUT : all-contacts
+[16:59:03] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+|  1   |Andy           |            +380674169297             |    Emty    |          Emty           |                  Emty                  |
+===============================================================================================================================================
+
+
+[16:59:03] Bot has been saved!
+[16:59:03] Bot has been loaded!
+[16:59:10] Bot has been loaded!
+[16:59:16] [Module] USER INPUT : all-contacts
+[16:59:16] BOT RESULT : 
+===============================================================================================================================================
+| No.  |Name           |               Phone(s)               |  Birthday  |          Email          |                Address                 |
+===============================================================================================================================================
+|  1   |Andy           |            +380674169297             |    Emty    |          Emty           |                  Emty                  |
+===============================================================================================================================================
+
+
+[16:59:16] Bot has been saved!
+[16:59:16] Bot has been loaded!
